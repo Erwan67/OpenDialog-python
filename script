@@ -1,0 +1,31 @@
+from tkinter import* #generate dialogbox
+from skimage import data,io,filters # to use different filter on your image
+import glob  
+import os
+import cv2 # to open and view your image
+import numpy as np
+from tkinter import filedialog
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+
+
+myDirectory=filedialog.askdirectory()
+path=myDirectory
+path=os.path.realpath(path)
+img=cv2.imread(path)
+
+
+#print(path)
+
+
+Impath = glob.glob(path+"/*.jpg")
+cv2_img = []
+for img in Impath:
+    n = cv2.imread(img)
+    gauss = filters.gaussian(n,sigma=1,multichannel=False)
+    #cmap = cm.gray
+    #plt.imshow(n)
+    io.imshow(gauss[..., 0])
+    
+    plt.show()
+ 
